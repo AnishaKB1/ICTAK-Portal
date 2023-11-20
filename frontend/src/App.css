@@ -1,0 +1,166 @@
+/* Home CSS */
+/* App.css */
+.App {
+  position: relative;
+}
+
+.blur {
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+body{
+  background-color: beige;
+}
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
+
+.content-container {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  text-align: center;
+  justify-content: space-evenly; /* You can use 'space-between' or other values as needed */
+     height: 500px; 
+}
+
+.text-container {
+  margin-bottom: 20px;
+  width:30%;
+  margin-left: 20px;
+  line-height: 2em;
+ 
+}
+
+button {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #2980b9;
+  }
+}
+
+.image-container {
+  overflow: hidden;
+  width: 100%;
+
+  /* max-width: 400px; */
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+  /* Add responsive styles here */
+   @media (max-width: 768px) {
+    .home-container {
+      flex-direction: block;
+      align-items: center;
+    }
+  
+    .image-container {
+      margin-left: 0;
+      margin-top: 20px; /* Adjust the margin for spacing */
+    
+  }  
+}
+
+#call{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: xx-large;
+}
+#intern{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size :50px;
+  color:blue;
+}
+#para{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size :larger;
+}
+#but{
+  font-size:xx-large;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: rgb(145, 140, 140);
+  width:70%;
+}
+
+
+
+
+
+/*LoginForm*/
+#log
+{
+  width: 100%;
+  height: 100%;
+  /* Optional, for a fixed background */
+  display: flex;
+  justify-content: center; /* Horizontal alignment */
+  align-items: center; /* Vertical alignment */
+  margin-bottom: 50px;
+ 
+  
+}
+body{
+  background-image: url('new.jpg');
+ 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.loginform{
+
+    
+    width: 25%; /* Adjust the width as needed */
+  padding: 10px;
+  border: 1px solid blue;
+  border-radius: 5px;
+  margin-top: 100px;
+  justify-content: center; /* Horizontal alignment */
+  align-items: center; /* Vertical alignment */
+
+ 
+
+}
+
+
+@media (max-width: 768px) {
+  #log {
+      width: 80%; /* Adjust the width for smaller screens */
+      margin-top:20px;
+  }
+}
+#head{
+   
+  color:blue;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.btn-log{
+  width:100%;
+}
+.text{
+  width:100%
+}
+
+
