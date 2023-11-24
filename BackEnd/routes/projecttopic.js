@@ -6,7 +6,7 @@ const router = express.Router();
 const jwt=require('jsonwebtoken')
 
 
-router.get("/",async (req, res) => {
+router.get("/view",async (req, res) => {
     try {
       const getpost = await prodata.find();
       res.json(getpost);
@@ -19,7 +19,8 @@ router.post('/add',async (req, res) => {
     const data = new prodata({
         title: req.body.title,
         description: req.body.description,
-         imageurl :req.body.imageurl
+         imageurl :req.body.imageurl,
+         referenceUrl:req.body.referenceUrl
     })
   
     try {
@@ -40,7 +41,7 @@ router.post('/add',async (req, res) => {
   const updateddata = req.body;
   const result = await prodata.findByIdAndUpdate(id, updateddata);
    
-    res.status(200).json(result);
+  res.status(200).send('Updated Successfully');
   } catch (error) {
     res.status(500).send(error);
   }

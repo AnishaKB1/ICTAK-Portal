@@ -9,12 +9,35 @@ import axios from 'axios';
 
 const Login = ({ isLoginClicked }) => {
 
-  const [user,setUser]=useState();
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
   const navigate=useNavigate();
+  const [errors, setErrors] = useState({});
   const inputHandler = (e) =>{
     setUser({...user,[e.target.name]:e.target.value})
+    setErrors({ ...errors, [e.target.name]: '' });
   }
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!user.email.trim()) {
+      newErrors.email = 'Email is required';
+    }
+
+    if (!user.password.trim()) {
+      newErrors.password = 'Password is required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+
   const addHandler=()=>{
+    if (validateForm()) {
     axios.post('http://localhost:3000/admin/login',user).then((res)=>{
       console.log('Login response:', res.data);
       alert(res.data.message);
@@ -40,6 +63,7 @@ const Login = ({ isLoginClicked }) => {
     console.log(user)
   
   }
+}
   
   
   return (
@@ -52,9 +76,13 @@ const Login = ({ isLoginClicked }) => {
 </Typography>
 <br/> <br/>
 
-<TextField  className='text'  variant='outlined' label='Email' name='email' onChange={inputHandler} />
+<TextField  className='text'  variant='outlined' label='Email' name='email' onChange={inputHandler} 
+ error={Boolean(errors.email)}
+ helperText={errors.email} />
 <br/> <br/>
-<TextField className='text' type='password' variant='outlined' label='Password' name='password' onChange={inputHandler} />
+<TextField className='text' type='password' variant='outlined' label='Password' name='password' onChange={inputHandler} 
+error={Boolean(errors.password)}
+helperText={errors.password}/>
 <br/> <br/>
 <Button variant='contained' className='btn-log'  color='primary'  onClick={addHandler}>Login</Button>
 <br/> <br/> <br/>

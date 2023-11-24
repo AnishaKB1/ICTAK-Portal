@@ -24,7 +24,7 @@ function App() {
     <Routes>
       {/* Routes in home page   */}
       <Route path = '/'  element={<Main child ={<Home />}/>}></Route>
-      <Route path = '/login' element={<Main child ={<Login/>}/>}></Route>
+      {/* <Route path = '/login' element={<Main child ={<Login/>}/>}></Route> */}
       <Route path = '/About'  element={<Main child ={<Aboutus />}/>}></Route>
       <Route path = '/Contact'  element={<Main child ={<Contact />}/>}></Route>
       
