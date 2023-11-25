@@ -5,6 +5,7 @@ import axiosInstance from '../../axiosinterceptor';
 import Addproject from './Addproject';
 
 
+
 const Projectview = () => {
 
   const [cardData,setData]= useState([]);
@@ -38,11 +39,11 @@ const Projectview = () => {
     };
     let finalJSX= (
     <div>
-    <div id="card-containerp" style={{ margin: '7%' }}>
+    <div id="card-containerp"  style={{ margin: '20px' }}>
   {cardData.map((val, i) => (
     <Grid item key={i} xs={12} sm={6} md={4}>
       <Card className="cardp">
-        <CardMedia className="card-mediap" image={val.imageurl} title={val.title} />
+        <CardMedia className="card-mediap" image={val.imageUrl} title={val.title} />
         <CardContent className="card-contentp">
           <Typography gutterBottom variant="h5" component="div">
             {val.title}

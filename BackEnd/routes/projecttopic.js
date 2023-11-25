@@ -58,4 +58,15 @@ router.post('/add',async (req, res) => {
       res.status(400).json({ message: error.message })
   }
   })
+
+
+  router.get('/protitle', async (req, res) => {
+    try {
+      const projects = await prodata.find({}, 'title');
+      res.json(projects);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 module.exports=router;

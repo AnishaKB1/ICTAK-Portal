@@ -12,7 +12,7 @@ const Dashboard = ({ onSidebarItemClick  }) => {
         </div>
 
         <div className='main-cards'>
-          <div className='card'  onClick={() => onSidebarItemClick('Addproject')}>
+          <div className='card'  onClick={() => onSidebarItemClick('Projectview')}>
             <div className='card-inner'>
 
              <h4>Projects</h4>
@@ -21,7 +21,7 @@ const Dashboard = ({ onSidebarItemClick  }) => {
           </div>
           </div>
 
-          <div className='card' onClick={() => onSidebarItemClick('Mentor')}>
+          <div className='card' onClick={() => onSidebarItemClick('Mentorview')}>
             <div className='card-inner'>
                 <h4>Mentors</h4>
                 <PeopleIcon className='card_icon' />

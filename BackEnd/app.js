@@ -21,6 +21,8 @@ app.use('/admin',adminrouter);
 const projectrouter=require('./routes/projecttopic');
 app.use('/project',projectrouter);
 
+const mentorrouter=require('./routes/mentordata');
+app.use('/mentor',mentorrouter);
 
 
   
