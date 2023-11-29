@@ -66,8 +66,13 @@ const Addproject = (props) => {
       axiosInstance
         .post('http://localhost:3000/project/add', formData)
         .then((res) => {
-          alert(res.data);
-          navigate('/Projectview');
+          if (res.data === 'Posted Successfully') {
+            alert(res.data);
+            window.location.reload(false);
+            navigate('/Projectview');
+          } else {
+            alert('not updated');
+          }
         });
     }
   }

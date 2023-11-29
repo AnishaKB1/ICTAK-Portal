@@ -13,6 +13,9 @@ import Addproject from './pages/Admin/Addproject';
 import Projectview from './pages/Admin/Projectview';
 import Addmentor from './pages/Admin/Addmentor';
 import Mentorview from './pages/Admin/Mentorview';
+import Mentormain from './pages/Mentor/Mentormain';
+import Mentordash from './pages/Mentor/Mentordash';
+import Viewtopic from './pages/Mentor/Viewtopic';
 
 function App() {
  
@@ -36,6 +39,12 @@ function App() {
        <Route path = '/Projectview' element={<Admindash  child={<Projectview/>}/>}></Route>
        <Route path = '/Mentorview' element={<Admindash  child={<Mentorview/>}/>}></Route>
        <Route path = '/Addmentor' element={<Admindash  child={<Addmentor/>}/>}></Route> 
+
+        {/* Routes to Mentor dashboard */}
+        <Route path = '/Mentordash' element={<Mentormain child={<Mentordash/>}/>}></Route>
+       <Route path = '/submissions' element={<Mentormain child={<Viewtopic/>}/>}></Route>
+
+
       </Routes>
        </div>
   

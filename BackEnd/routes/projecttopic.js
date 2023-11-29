@@ -19,7 +19,7 @@ router.post('/add',async (req, res) => {
     const data = new prodata({
         title: req.body.title,
         description: req.body.description,
-         imageurl :req.body.imageurl,
+         imageUrl :req.body.imageUrl,
          referenceUrl:req.body.referenceUrl
     })
   

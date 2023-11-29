@@ -4,8 +4,8 @@ const student=mongoose.Schema({
   batch: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  projectId: { type: Schema.Types.ObjectId, ref: 'projectdata' },
-  submissionUrl:{ type: String, required: true }
+  projectId: { type: Schema.Types.ObjectId, ref: 'projectdata' }
+  
 })
 const studdata=mongoose.model('studentdata',student);
 module.exports=studdata;
