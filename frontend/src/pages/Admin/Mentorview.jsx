@@ -75,9 +75,13 @@ let finalJSX= (
                 {/* Check if mentor.projectTitle exists before accessing its title property */}
                 <TableCell className="table-cell" align="center">
   {mentor.projectTitle && mentor.projectTitle.length > 0 ? (
-    mentor.projectTitle.map((project) => project.title).join(', ')
+    <ol>
+      {mentor.projectTitle.map((project, index) => (
+        <li key={index}>{project.title}</li>
+      ))}
+    </ol>
   ) : (
-    'No Project Assigned'
+    <p>No Project Assigned</p>
   )}
 </TableCell>
                 <TableCell className="table-cell" align="center">
