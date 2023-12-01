@@ -26,6 +26,9 @@ app.use('/mentor',mentorrouter);
 
 const mentordashboard=require('./routes/mentordash');
 app.use('/mentordash',mentordashboard);
+
+const submission=require('./routes/submission');
+app.use('/sub',submission);
   
   const PORT = process.env.PORT;
 app.listen(PORT,()=>{

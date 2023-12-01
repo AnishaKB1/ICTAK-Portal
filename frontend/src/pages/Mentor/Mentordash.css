@@ -1,115 +1,230 @@
 .icon {
-    vertical-align: middle;
-    line-height: 1px;
-    font-size: 20px;
-  }
-  .icon_header {
-    vertical-align: middle;
-    line-height: 1px;
-    font-size: 26px;
-  }
-  .icon, .icon_header {
-    margin-right: 5px;
-  }
-  
-  .close_icon {
-    color: white;
-    margin-left: 30px;
-    margin-top: 10px;
-    cursor: pointer;
-  }
-  
-  .grid-container {
-    display: flex;
-    grid-template-columns: 260px 1fr 1fr 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-      'sidebar header header header'
-      'sidebar main main main';
-    height: 100vh;
-  } 
+  vertical-align: middle;
+  line-height: 1px;
+  font-size: 20px;
+}
+.icon_header {
+  vertical-align: middle;
+  line-height: 1px;
+  font-size: 26px;
+}
+.icon, .icon_header {
+  margin-right: 5px;
+}
 
+.close_icon {
+  color: white;
+  margin-left: 30px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.grid-container {
+  display: flex;
+  grid-template-columns: 260px 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'sidebar header header header'
+    'sidebar main main main';
+  height: 100vh;
+} 
+
+
+/* Header  */
+.header {
+  grid-area: header;
+  height: 60px;
+ 
+  background-color: beige;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px 0 30px;
+  box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
+
+}
+
+.menu-icon {
+  display: none;
+}
+/* End Header  */
+
+/* Sidebar  */
+#sidebar {
+  margin-top: 0px;
+  grid-area: sidebar;
+  min-height: 200%; /* Use min-height instead of height */
+  background-color: #636C75;
+  overflow-y: auto;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  color: white;
+  align-items: left;
+}
+
+.sidebar-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px 0px 30px;
+  margin-bottom: 30px;
+}
+
+.sidebar-title > span {
+  display: none;
+}
+
+.sidebar-brand {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sidebar-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.sidebar-list-item {
+  padding: 20px 20px 20px 20px;
+  font-size: 18px;
+}
+
+.sidebar-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.sidebar-list-item > a {
+  text-decoration: none;
+  color: #9e9ea4;
+}
+
+.sidebar-responsive {
+  display: inline !important;
+  position: absolute;
+  /*
+    we want the z-index of the sidebar higher so that
+    the charts are not showing over the sidebar 
+    on small screens
+  */
+  z-index: 12 !important;
+}
+
+/* End Sidebar  */
+
+/* Mentordashboard project view */
+#mentordisplay{
+  margin:20px;
+}
+#card-container {
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  margin:2rem 4rem;
+}
+
+.mcard {
+  width: 100%;
+  max-width: 345px;
+  height: 300px; /* Adjust the height as needed */
+  margin: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.mcard:hover {
+  transform: scale(1.05);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
   
-  /* Header  */
-  .header {
-    grid-area: header;
-    height: 60px;
+} 
    
-    background-color: beige;
-    display: flex;
+/* Media query for small screens */
+@media (max-width: lg) {
+  #card-container {
+    flex-direction: column; /* Stack cards vertically on small screens */
     align-items: center;
-    justify-content: space-between;
-    padding: 0 30px 0 30px;
-    box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
-  
   }
-  
-  .menu-icon {
-    display: none;
+
+  .card {
+    max-width: 100%; /* Make cards take full width on small screens */
   }
-  /* End Header  */
+}
+
+/* end mentordashboard view */
+
+
+
+  /*Submission CSS*/
+.table-container {
+  /* overflow-x: auto;  */
+/* border: 1px solid #51c4d8; */
+width:100%;
+margin-left: 25px;
+margin-top: 100px; 
+} 
+
+.mentor-table {
+   width: 100%; 
+   /* height:50%; */
+  border-collapse: collapse;
+  border: 1px solid #51c4d8;
   
-  /* Sidebar  */
-  #sidebar {
-    margin-top: 0px;
-    grid-area: sidebar;
-    min-height: 200%; /* Use min-height instead of height */
-    background-color: #636C75;
-    overflow-y: auto;
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    color: white;
-    align-items: left;
+  margin-top: 30px; 
+  /* margin-left: 20px; */
+  /* margin-right: 100px; */
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+  .mentor-table {
+    overflow-x: auto;
+    display: block;
   }
+ 
+
+}
+
+
+.table-cell {
+  border: 1px solid  #4bd4ec; /*Add border to cells*/
+  padding: 8px; /* Add padding to cells */
+  text-align: left; /* Adjust text alignment as needed */
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.action-button {
+  margin-right: 4px; /* Adjust margin between buttons */
+}
+.mentor-table th {
+  background-color: #51c4d8; /* Background color for table head */
+  color: white;
+  font-size: larger;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.mentor-table tbody tr:hover {
+  background-color: #def1f8; /* Background color on hover */
+}
+.mentor-table td .icon {
+  margin-right: 5px;
+  cursor: pointer;
+}
+#selection{
   
-  .sidebar-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px 0px 30px;
-    margin-bottom: 30px;
-  }
-  
-  .sidebar-title > span {
-    display: none;
-  }
-  
-  .sidebar-brand {
-    margin-top: 15px;
-    font-size: 20px;
-    font-weight: 700;
-  }
-  
-  .sidebar-list {
-    padding: 0;
-    list-style-type: none;
-  }
-  
-  .sidebar-list-item {
-    padding: 20px 20px 20px 20px;
-    font-size: 18px;
-  }
-  
-  .sidebar-list-item:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    cursor: pointer;
-  }
-  
-  .sidebar-list-item > a {
-    text-decoration: none;
-    color: #9e9ea4;
-  }
-  
-  .sidebar-responsive {
-    display: inline !important;
-    position: absolute;
-    /*
-      we want the z-index of the sidebar higher so that
-      the charts are not showing over the sidebar 
-      on small screens
-    */
-    z-index: 12 !important;
-  }
-  
-  /* End Sidebar  */
-  
+  width:100px;
+}
+.selection-container {
+  display: flex;
+  align-items: center;
+}
+
+.selection-label {
+  margin-right: 10px; /* Adjust the margin as needed */
+}

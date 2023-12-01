@@ -143,8 +143,10 @@ const Addmentor = (props) => {
         if (response.data === 'Updated Successfully') {
           console.log('Update successful. Triggering alert.');
           showAlert();
+          window.location.reload(false);
+          navigate('/mentorview');
           // Set update to true
-  setUpdate(true);
+          setUpdate(true);
         } else {
           console.log('Update failed. Response:', response.data);
           alert('Not updated');
@@ -158,6 +160,7 @@ const Addmentor = (props) => {
           if (response.data && response.data.message === 'Posted Successfully') {
             console.log('Post successful. Triggering alert.');
             alert('Posted Successfully');
+            window.location.reload(false);
             navigate('/Mentorview');
           } else {
             console.log('Post failed. Response:', response.data);

@@ -25,7 +25,7 @@ const Mentormain = () => {
       {<Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} onSidebarItemClick={handleSidebarItemClick} /> }
 
   {selectedOption === 'Mentordash' && <Mentordash/>}
-      {selectedOption === 'Submissions' && <Viewtopic/>} 
+      {selectedOption === 'Viewtopic' && <Viewtopic/>} 
  
       
       </div>

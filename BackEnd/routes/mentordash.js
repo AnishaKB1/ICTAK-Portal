@@ -9,8 +9,10 @@ router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
 router.get('/mentors', verifytoken, async (req, res) => {
+  console.log("here............")
   try {
     const mentorId = req.query.id;
+    console.log("backend::",mentorId);
     const mentor = await Mentor.findById(mentorId);
 
     if (!mentor) {
@@ -25,4 +27,4 @@ router.get('/mentors', verifytoken, async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports=router;

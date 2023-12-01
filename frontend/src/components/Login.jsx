@@ -40,16 +40,19 @@ const Login = ({ isLoginClicked }) => {
     if (validateForm()) {
     axios.post('http://localhost:3000/admin/login',user).then((res)=>{
       console.log('Login response:', res.data);
+      localStorage.setItem("userid", res.data.userid);
       alert(res.data.message);
       if (res.data.message === 'success') {
         sessionStorage.setItem("userToken", res.data.token);
         if (user.email === 'admin@gmail.com') {
           navigate('/Dashboard');
         } else {
+
           navigate('/Mentordash');
         }
       }
     })
+
     .catch((error) => {
       if (error.response && error.response.status === 401) {
           alert('Invalid credentials. Please try again.');
