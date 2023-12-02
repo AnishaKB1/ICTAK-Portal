@@ -69,37 +69,7 @@ const Projectview = () => {
       </Grid>
       </Container>
     );
-//     <div>
-//     <div id="card-containerp"  style={{ margin: '20px' }}>
-//   {cardData.map((val, i) => (
-//     <Grid item key={i} xs={12} sm={6} md={4}>
-//       <Card className="cardp">
-//         <CardMedia className="card-mediap" image={val.imageUrl} title={val.title} />
-//         <CardContent className="card-contentp">
-//           <Typography gutterBottom variant="h5" component="div">
-//             {val.title}
-//           </Typography>
-//           <Typography variant="body2" color="text.secondary">
-//             {val.description}
-//           </Typography>
-//           <Typography variant="body2" color="text.secondary">
-//             <strong>Reference Material URL:</strong> {val.referenceUrl}
-//           </Typography>
-//         </CardContent>
-//         <CardActions className="card-actionsp">
-//           <Button size="small"  variant="contained" color="error" onClick={() => deletePost(val._id)}>
-//             Delete
-//           </Button>
-//           <Button size="small" id='update' variant="contained" color="primary" onClick={() => updateBlog(val)}>
-//             Update
-//           </Button>
-//         </CardActions>
-//       </Card>
-//     </Grid>
-//   ))}
-// </div>
-//   </div>
-//   );
+
   if(update) finalJSX=<Addproject method="put" data={singleValue}/>
   return (
    

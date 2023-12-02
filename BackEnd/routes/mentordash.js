@@ -20,7 +20,7 @@ router.get('/mentors', verifytoken, async (req, res) => {
     }
 
     const projects = await Project.find({ _id: { $in: mentor.projectTitle } });
-    res.status(200).json(projects);
+    res.status(200).json({ mentorName: mentor.name, projects });
   } catch (error) {
     console.error('Error fetching mentor data:', error);
     res.status(500).json({ error: 'Internal Server Error' });

@@ -3,15 +3,21 @@ import axios from 'axios';
 import { Table, TableContainer,Paper,TableHead, TableBody, TableRow, TableCell, Select, MenuItem, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from 'react-router-dom';
+import Evaluate from './Evaluate';
 
 
 
 const Viewtopic = () => {
   const [submissions, setSubmissions] = useState([]);
-  const [selectedBatchOrProject, setSelectedBatchOrProject] = useState('');
+  var[update,setUpdate] = useState(false);
+    var[singleValue,setSingleValue]=useState([])
+  const [selectedBatchOrProject, setSelectedBatchOrProject] = useState('BatchProject');
   const mentorId = localStorage.getItem('userid');
+  const navigate = useNavigate();
 
   useEffect(() => {
+   
     // Fetch submissions based on batch or project
     axios.get(`http://localhost:3000/sub/mentor/submissions?id=${mentorId}&batchOrProjectId=${selectedBatchOrProject}`)
       .then((res) => setSubmissions(res.data))
@@ -19,27 +25,55 @@ const Viewtopic = () => {
   }, [selectedBatchOrProject]);
 
   const handleBatchOrProjectChange = (event) => {
+  // Clear submissions when changing the selection
     setSelectedBatchOrProject(event.target.value);
   };
 
+  const handleEvaluate = (submissionId) => {
+    navigate(`/Evaluate/${submissionId}`);
+};
+const updatesub = (val) => {
+  navigate(`/Evaluate/${val._id}?edit=T`);
+  // Check if val has the expected properties
+  if (val && val._id) {
+    console.log("val._id:", val._id);
+    console.log("val.name:", val.name);
 
+    setUpdate(true);
+    setSingleValue(val);
+  } else {
+    console.error("Received invalid value for updatesub");
+  }
+};
 
-
-  return (
-    <div>
-      <h1>Submissions</h1>
+function deletePost (submissionId) {
+  axios.delete(`http://localhost:3000/sub/submissions/delete/${submissionId}`)
+    .then((res) => {
+     alert(res.data);
+     axios.get(`http://localhost:3000/sub/mentor/submissions?id=${mentorId}&batchOrProjectId=${selectedBatchOrProject}`)
+     .then((res) => setSubmissions(res.data))
+     .catch((error) => console.error('Error fetching submissions:', error));
+    
+    })
+    .catch((error) => {
+      console.error('Error deleting post:', error);
+    });
+};
+let finalJSX= (
+    <div className='view'>
+      <h1 className='sub'>Submissions</h1>
     <div className="container">
     <div className="selection-container">
   <label htmlFor="selection" className="selection-label">Select Batch or Project:</label>
-  <Select value={selectedBatchOrProject} onChange={handleBatchOrProjectChange} id='selection'>
-    <MenuItem value="">Select Batch or Project</MenuItem>
+  <Select value={selectedBatchOrProject} onChange={handleBatchOrProjectChange} id='selection' defaultValue="BatchProject">
+    <MenuItem value="BatchProject">Select Batch or Project</MenuItem>
     <MenuItem value="batch">Batch</MenuItem>
     <MenuItem value="project">Project</MenuItem>
   </Select>
 </div>
       <div className="tableContainer">
-      <TableContainer className="mentor-table" component={Paper} sx={{ maxHeight: 600 }}>
-  <Table >
+      <TableContainer className="mentor-table" component={Paper} sx={{ maxHeight: 600,width:'100%' }}>
+  <Table sx={{ width: '100%'}}>
   <TableHead id='thead' >
       <TableRow >
           
@@ -61,21 +95,21 @@ const Viewtopic = () => {
               <TableCell className="table-cell" align="center">{submission.student.batch}</TableCell>
               <TableCell className="table-cell" align="center">{submission.student.email}</TableCell>
               <TableCell className="table-cell" align="center">{submission.project.title}</TableCell>
-              <TableCell className="table-cell" align="center">{submission. referenceMaterial}</TableCell>
+              <TableCell className="table-cell" align="center">{submission.submissionUrl}</TableCell>
               <TableCell className="table-cell" align="center">{submission.status}</TableCell>
               <TableCell className="table-cell" align="center">
-                <Button>Evaluate</Button> </TableCell>
+              <Button id="submit" variant="contained" onClick={()=>handleEvaluate(submission._id)} >Evaluate</Button>  </TableCell>
               <TableCell className="table-cell" align="center">
                   <EditIcon
                     className="action-button"
-                    // onClick={() => updateBlog(mentor)}
+                    onClick={() => updatesub(submission)}
                     color="primary"
                   />
                 </TableCell>
                 <TableCell className="table-cell" align="center">
                   <DeleteIcon
                     className="action-button"
-                    // onClick={() => deletePost(mentor._id)}
+                    onClick={() => deletePost(submission._id)}
                     color="primary"
                   />
                 </TableCell>
@@ -88,6 +122,17 @@ const Viewtopic = () => {
     </div>
     </div>
   );
+  if (update && singleValue && singleValue._id){
+    finalJSX=<Evaluate method="put" data={singleValue}/>
+        }
+  return (
+  
+   
+    finalJSX
+    
+  
+   )
+  
 };
 
 

@@ -5,12 +5,15 @@ import Sidebar from './Sidebar';
 import Mentordash from './Mentordash';
 import './Mentordash.css';
 import Viewtopic from './Viewtopic';
+import { useLocation } from 'react-router-dom';
 
 const Mentormain = () => {
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
+    const location =useLocation();
+    const pathnameWithoutSlash = location.pathname.substring(1);
+    const [selectedOption, setSelectedOption] = useState(pathnameWithoutSlash);
     
-    const [selectedOption, setSelectedOption] = useState('Mentordash');
-  
+
       const OpenSidebar = () => {
         setOpenSidebarToggle(!openSidebarToggle)
       };

@@ -16,6 +16,8 @@ import Mentorview from './pages/Admin/Mentorview';
 import Mentormain from './pages/Mentor/Mentormain';
 import Mentordash from './pages/Mentor/Mentordash';
 import Viewtopic from './pages/Mentor/Viewtopic';
+import Projectsubmission from './pages/Mentor/Projectsubmission';
+import Evaluate from './pages/Mentor/Evaluate';
 
 function App() {
  
@@ -42,9 +44,9 @@ function App() {
 
         {/* Routes to Mentor dashboard */}
         <Route path = '/Mentordash' element={<Mentormain child={<Mentordash/>}/>}></Route>
-       <Route path = '/submissions' element={<Mentormain child={<Viewtopic/>}/>}></Route>
-
-
+       <Route path = '/Viewtopic' element={<Mentormain child={<Viewtopic/>}/>}></Route>
+       <Route path='/Projectsubmission/:projectId' element={<Projectsubmission />} ></Route>
+       <Route path = '/Evaluate/:submissionId' element={ <Evaluate/>}></Route>
       </Routes>
        </div>
   
