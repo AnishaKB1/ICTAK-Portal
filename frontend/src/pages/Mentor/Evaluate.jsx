@@ -4,6 +4,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import axios from 'axios';
 import { useParams, useNavigate,useLocation  } from 'react-router-dom';
+import axiosInstance from '../../axiosinterceptor';
 
 const Evaluate = (props) => {
   const [formData, setFormData] = useState({
@@ -41,7 +42,7 @@ const Evaluate = (props) => {
         getSubmissions(submissionId)
       }
       // Fetch submissions based on the selected project ID
-      axios
+      axiosInstance
         .get(`http://localhost:3000/sub/student/projects?id=${mentorId}&submissionId=${submissionId}`)
         .then((res) => setSubmission(res.data))
         .catch((error) => console.error('Error fetching submissions:', error));
@@ -52,7 +53,7 @@ const Evaluate = (props) => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
   const getSubmissions = (submissionId) => {
-      axios.get(`http://localhost:3000/sub/evaluate/${submissionId}`)
+      axiosInstance.get(`http://localhost:3000/sub/evaluate/${submissionId}`)
       .then((res)=>{
           const submissionData = res.data;
           console.log(submissionData,'submissionData')
@@ -101,7 +102,7 @@ const Evaluate = (props) => {
     console.log('Form Data:', formData);
     console.log('props.method', props.method);
     if (searchValue === 'T') {
-      axios
+      axiosInstance
       .put(`http://localhost:3000/sub/evaluate/${submissionId}`, formData)
         .then((response) => {
           if (response.data === 'Updated Successfully') {
@@ -114,7 +115,7 @@ const Evaluate = (props) => {
         });
     } else {
       if (validateForm()) {
-        axios
+        axiosInstance
         .post(`http://localhost:3000/sub/submit/${submissionId}`, formData)
         .then((res) => {
           if (res.data === 'Posted Successfully') {

@@ -27,7 +27,7 @@ const Header = ({OpenSidebar}) => {
         <BsSearch  className='icon'/>
     </div> */}
     <div className='header-right'>
-      <Link to={'/'}>
+      <Link to={'/Logout'}>
         <LogoutIcon className='icon'/>
         </Link>
     </div> 

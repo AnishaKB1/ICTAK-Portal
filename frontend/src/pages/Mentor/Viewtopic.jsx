@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../axiosinterceptor';
 import { Table, TableContainer,Paper,TableHead, TableBody, TableRow, TableCell, Select, MenuItem, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -19,7 +19,7 @@ const Viewtopic = () => {
   useEffect(() => {
    
     // Fetch submissions based on batch or project
-    axios.get(`http://localhost:3000/sub/mentor/submissions?id=${mentorId}&batchOrProjectId=${selectedBatchOrProject}`)
+    axiosInstance.get(`http://localhost:3000/sub/mentor/submissions?id=${mentorId}&batchOrProjectId=${selectedBatchOrProject}`)
       .then((res) => setSubmissions(res.data))
       .catch((error) => console.error('Error fetching submissions:', error));
   }, [selectedBatchOrProject]);
@@ -47,10 +47,10 @@ const updatesub = (val) => {
 };
 
 function deletePost (submissionId) {
-  axios.delete(`http://localhost:3000/sub/submissions/delete/${submissionId}`)
+  axiosInstance.delete(`http://localhost:3000/sub/submissions/delete/${submissionId}`)
     .then((res) => {
      alert(res.data);
-     axios.get(`http://localhost:3000/sub/mentor/submissions?id=${mentorId}&batchOrProjectId=${selectedBatchOrProject}`)
+     axiosInstance.get(`http://localhost:3000/sub/mentor/submissions?id=${mentorId}&batchOrProjectId=${selectedBatchOrProject}`)
      .then((res) => setSubmissions(res.data))
      .catch((error) => console.error('Error fetching submissions:', error));
     
@@ -62,7 +62,7 @@ function deletePost (submissionId) {
 let finalJSX= (
     <div className='view'>
       <h1 className='sub'>Submissions</h1>
-    <div className="container">
+    <div className="containerview">
     <div className="selection-container">
   <label htmlFor="selection" className="selection-label">Select Batch or Project:</label>
   <Select value={selectedBatchOrProject} onChange={handleBatchOrProjectChange} id='selection' defaultValue="BatchProject">
@@ -98,7 +98,7 @@ let finalJSX= (
               <TableCell className="table-cell" align="center">{submission.submissionUrl}</TableCell>
               <TableCell className="table-cell" align="center">{submission.status}</TableCell>
               <TableCell className="table-cell" align="center">
-              <Button id="submit" variant="contained" onClick={()=>handleEvaluate(submission._id)} >Evaluate</Button>  </TableCell>
+              <Button id="submit" variant="contained" onClick={()=>handleEvaluate(submission._id)} disabled={submission.status === 'completed'}>Evaluate</Button>  </TableCell>
               <TableCell className="table-cell" align="center">
                   <EditIcon
                     className="action-button"

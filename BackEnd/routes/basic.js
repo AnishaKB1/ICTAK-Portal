@@ -23,6 +23,10 @@ function verifytoken(req,res,next){
     }
   }
 
+
+
+  //API for Login of Admin and Mentor
+
   router.post('/login', async (req, res) => {
     console.log("i am here");
     try {

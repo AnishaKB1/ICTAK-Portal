@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../axiosinterceptor';
 import { Table, TableContainer, Paper, TableHead, TableBody, TableRow, TableCell, Select, MenuItem, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -26,7 +26,7 @@ const Projectsubmission = ({ }) => {
 
         if (projectId) {
             // Fetch submissions based on the selected project ID
-            axios.get(`http://localhost:3000/sub/mentor/projects?id=${mentorId}&projectId=${projectId}`)
+            axiosInstance.get(`http://localhost:3000/sub/mentor/projects?id=${mentorId}&projectId=${projectId}`)
                 .then((res) => setSubmissions(res.data))
                 .catch((error) => console.error('Error fetching submissions:', error));
 
@@ -51,10 +51,10 @@ const Projectsubmission = ({ }) => {
     };
 
     function deletePost (submissionId) {
-        axios.delete(`http://localhost:3000/sub/submissions/delete/${submissionId}`)
+        axiosInstance.delete(`http://localhost:3000/sub/submissions/delete/${submissionId}`)
           .then((res) => {
            alert(res.data);
-           axios.get(`http://localhost:3000/sub/mentor/projects?id=${mentorId}&projectId=${projectId}`)
+           axiosInstance.get(`http://localhost:3000/sub/mentor/projects?id=${mentorId}&projectId=${projectId}`)
         .then((res) => setSubmissions(res.data))
         .catch((error) => console.error('Error fetching submissions:', error));
          
@@ -119,7 +119,7 @@ const Projectsubmission = ({ }) => {
                                         <TableCell className="table-cell" align="center">{submission.submissionUrl}</TableCell>
                                         <TableCell className="table-cell" align="center">{submission.status}</TableCell>
                                         <TableCell className="table-cell" align="center">
-                                            <Button id="submit" variant="contained" onClick={()=>handleEvaluate(submission._id)} >Evaluate</Button> </TableCell>
+                                            <Button id="submit" variant="contained" onClick={()=>handleEvaluate(submission._id)} disabled={submission.status === 'completed'} >Evaluate</Button> </TableCell>
                                         <TableCell className="table-cell" align="center">
                                             <EditIcon
                                                 className="action-button"

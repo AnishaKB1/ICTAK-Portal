@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import axiosInstance from '../../axiosinterceptor';
 
 const Mentordash = () => {
   const [mentorId, setMentorId] = useState(null);
@@ -14,7 +15,7 @@ const Mentordash = () => {
     const mentorId = localStorage.getItem("userid");
 
     if (mentorId) {
-      axios
+      axiosInstance
         .get(`http://localhost:3000/mentordash/mentors?id=${mentorId}`, {
           headers: {
             authorization: `Bearer ${sessionStorage.getItem('userToken')}`,

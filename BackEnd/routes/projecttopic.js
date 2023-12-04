@@ -4,9 +4,10 @@ const path=require('path');
 const prodata = require('../model/project');
 const router = express.Router();
 const jwt=require('jsonwebtoken')
+const verifytoken = require('./basic');
 
-
-router.get("/view",async (req, res) => {
+//API for projects view in Projectview
+router.get("/view",verifytoken,async (req, res) => {
     try {
       const getpost = await prodata.find();
       res.json(getpost);
@@ -15,7 +16,10 @@ router.get("/view",async (req, res) => {
     }
   });
   
-router.post('/add',async (req, res) => {
+
+
+  //API for project registration in Addproject
+router.post('/add',verifytoken,async (req, res) => {
     const data = new prodata({
         title: req.body.title,
         description: req.body.description,
@@ -33,9 +37,9 @@ router.post('/add',async (req, res) => {
   })
   
   
+  //API for updation in Add project
   
-  
-  router.put("/update/:id",async (req, res) => {
+  router.put("/update/:id",verifytoken,async (req, res) => {
   try {
     const id = req.params.id;
   const updateddata = req.body;
@@ -47,8 +51,10 @@ router.post('/add',async (req, res) => {
   }
   });
   
+
+  //API for project deletion
   
-  router.delete('/delete/:id',async (req, res) => {
+  router.delete('/delete/:id',verifytoken,async (req, res) => {
   try {
       const id = req.params.id;
       const data = await prodata.findByIdAndDelete(id);
@@ -60,7 +66,9 @@ router.post('/add',async (req, res) => {
   })
 
 
-  router.get('/protitle', async (req, res) => {
+  //API for displaying project titles
+
+  router.get('/protitle', verifytoken,async (req, res) => {
     try {
       const projects = await prodata.find({}, 'title');
       res.json(projects);

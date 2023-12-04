@@ -9,7 +9,7 @@ const Submission = require('../model/submission');
 const verifytoken = require('./basic');
 
 // Fetch submissions based on batch or project
-router.get('/mentor/submissions', async (req, res) => {
+router.get('/mentor/submissions',verifytoken, async (req, res) => {
   const { batchOrProjectId } = req.query;
 
   try {
@@ -53,7 +53,11 @@ router.get('/mentor/submissions', async (req, res) => {
 
 
 
-router.get('/mentor/projects', async (req, res) => {
+
+
+
+//API for fetching projects based on mentor id and project id
+router.get('/mentor/projects', verifytoken,async (req, res) => {
   
 
   try {
@@ -80,7 +84,11 @@ router.get('/mentor/projects', async (req, res) => {
   }
 });
 
-router.get('/student/projects', async (req, res) => {
+
+
+//API for displaying submissions based on mentorid and submission id in evaluate page
+
+router.get('/student/projects',verifytoken, async (req, res) => {
   try {
     const mentorId = req.query.id;
     const submissionId = req.query.submissionId;
@@ -113,7 +121,9 @@ router.get('/student/projects', async (req, res) => {
 });
 
 
-router.post('/submit/:submissionId', async (req, res) => {
+//API for popsting data in Evaluate page
+
+router.post('/submit/:submissionId',verifytoken, async (req, res) => {
   try {
     const { marks, comments, referenceMaterial } = req.body;
     const submissionId = req.params.submissionId;
@@ -147,7 +157,11 @@ router.post('/submit/:submissionId', async (req, res) => {
 });
 
 
-router.put('/evaluate/:submissionId', async (req, res) => {
+
+
+//API for updating data in Evaluate page
+
+router.put('/evaluate/:submissionId',verifytoken, async (req, res) => {
   try {
     const { marks, comments, referenceMaterial } = req.body;
     const submissionId = req.params.submissionId;
@@ -181,7 +195,13 @@ router.put('/evaluate/:submissionId', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-router.delete('/submissions/delete/:submissionId', async (req, res) => {
+
+
+
+//API for deleting data from projectsubmissions and viewtopic pages
+
+
+router.delete('/submissions/delete/:submissionId',verifytoken, async (req, res) => {
   try {
       const submissionId = req.params.submissionId;
       const data = await Submission.findByIdAndDelete(submissionId);
@@ -193,7 +213,10 @@ router.delete('/submissions/delete/:submissionId', async (req, res) => {
   })
 
 
-  router.get('/evaluate/:submissionId', async (req, res) => {
+
+//API for getting marks,comments,reference Material for evaluate page
+
+  router.get('/evaluate/:submissionId',verifytoken, async (req, res) => {
     try {
       const submissionId = req.params.submissionId;
   
@@ -210,7 +233,7 @@ router.delete('/submissions/delete/:submissionId', async (req, res) => {
   
       // Extract relevant data and send it in the response
       const { marks, comments, referenceMaterial } = submission;
-      console.log(marks,'marksssssssssssssssssssssssssssssssssssssssssssssssssssss')
+     
       res.status(200).json({ marks, comments, referenceMaterial });
     } catch (error) {
       console.error(error);

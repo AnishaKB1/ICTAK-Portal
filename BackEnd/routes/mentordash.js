@@ -8,8 +8,12 @@ const verifytoken = require('./basic');
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
+
+//API for Fetching Menotrname and projects
+
+
 router.get('/mentors', verifytoken, async (req, res) => {
-  console.log("here............")
+ 
   try {
     const mentorId = req.query.id;
     console.log("backend::",mentorId);

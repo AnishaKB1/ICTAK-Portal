@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Project = require('../model/project');
 const Mentor = require('../model/mentor');
+const verifytoken = require('./basic');
 
 
-
-// Endpoint for mentor registration
-router.post('/add', async (req, res) => {
+// Endpoint for mentor registration in Addmentor 
+router.post('/add',verifytoken, async (req, res) => {
   try {
     const { name, email, phoneNumber, password, projectTitle } = req.body;
 
@@ -39,7 +39,11 @@ router.post('/add', async (req, res) => {
 });
 
 
-router.get('/view', async (req, res) => {
+
+
+//API for Mentor view in Mentorview page
+
+router.get('/view',verifytoken, async (req, res) => {
     try {
       const mentors = await Mentor.find().populate('projectTitle');
       res.json(mentors);
@@ -49,7 +53,10 @@ router.get('/view', async (req, res) => {
     }
   });
 
-  router.delete('/delete/:id', async (req, res) => {
+
+  //API for MEntor deletion in Mentorview
+
+  router.delete('/delete/:id',verifytoken, async (req, res) => {
     try {
         const id = req.params.id;
         const data = await Mentor.findByIdAndDelete(id);
@@ -60,7 +67,11 @@ router.get('/view', async (req, res) => {
     }
     })
 
-  router.put("/update/:id",async (req, res) => {
+
+
+//API for updation in Addmentor
+
+  router.put("/update/:id",verifytoken,async (req, res) => {
     try {
       const id = req.params.id;
       const updateddata = req.body;
