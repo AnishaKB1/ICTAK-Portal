@@ -55,7 +55,7 @@ const Navbar = () => {
   return (
     <AppBar position="static" style={{ backgroundColor: 'beige', width: '100%' }}>
       <Toolbar disableGutters>
-        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, width: '100%' }}>
           <IconButton
             size="large"
             aria-label="menu"
@@ -111,29 +111,31 @@ const Navbar = () => {
               </Typography>
             </MenuItem>
           </Menu>
+
         </Box>
+
 
         <img
           src={logo}
           alt="Logo"
           style={{
             display: { xs: 'none', md: 'flex' },
-            marginRight: 1,
+            marginLeft: '25px',
             height: '80px',
             width: '250px',
           }}
         />
 
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end', paddingRight: '15px' }}>
           <Button
             onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: 'black', display: 'block', marginLeft: '100px', fontSize: 'medium' }}
+            sx={{ my: 2, color: 'black', display: 'block', fontSize: 'medium' }}
           >
             <Link to={'/'} style={{ color: 'black', textDecoration: 'none' }}>
               Home
             </Link>
           </Button>
-          <br /> <br /> <br />
+
           <Button
             onClick={handleCloseNavMenu}
             sx={{ my: 2, color: 'black', display: 'block', fontSize: 'medium' }}
@@ -153,7 +155,7 @@ const Navbar = () => {
           <LoginIcon
             color="primary"
             fontSize="large"
-            style={{ marginLeft: '500px', marginTop: '20px' }}
+            style={{ marginLeft: '15px', marginTop: '20px' }}
           />
           <Button
             variant="contained"
@@ -164,8 +166,8 @@ const Navbar = () => {
               my: 2,
               color: 'white',
               display: 'block',
-          
-              
+
+
               fontSize: 'medium',
             }}
           >

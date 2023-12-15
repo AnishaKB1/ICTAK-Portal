@@ -1,14 +1,19 @@
+/*  Start of Mentor Dashboard  */
+
 .icon {
   vertical-align: middle;
   line-height: 1px;
   font-size: 20px;
 }
+
 .icon_header {
   vertical-align: middle;
   line-height: 1px;
   font-size: 26px;
 }
-.icon, .icon_header {
+
+.icon,
+.icon_header {
   margin-right: 5px;
 }
 
@@ -19,58 +24,55 @@
   cursor: pointer;
 }
 
-.grid-container {
-  display: flex;
+#grid-container {
+  display: grid;
   grid-template-columns: 260px 1fr 1fr 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 0.2fr 3fr;
   grid-template-areas:
     'sidebar header header header'
     'sidebar main main main';
   height: 100vh;
-} 
-
+}
 
 /* Header  */
 .header {
   grid-area: header;
   height: 60px;
- 
   background-color: beige;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 30px 0 30px;
   box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
-
 }
 
 .menu-icon {
   display: none;
 }
+
 /* End Header  */
 
+
 /* Sidebar  */
+
 #sidebar {
-  margin-top: 0px;
   grid-area: sidebar;
-  min-height: 200%; /* Use min-height instead of height */
-  background-color: #636C75;
+  height: 100%;
+  background-color: #6f7584;
   overflow-y: auto;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
-  color: white;
-  align-items: left;
 }
 
 .sidebar-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px 0px 30px;
+  padding: 15px 15px 0px 10px;
   margin-bottom: 30px;
 }
 
-.sidebar-title > span {
+.sidebar-title>span {
   display: none;
 }
 
@@ -88,6 +90,7 @@
 .sidebar-list-item {
   padding: 20px 20px 20px 20px;
   font-size: 18px;
+  color: #ffffff;
 }
 
 .sidebar-list-item:hover {
@@ -95,40 +98,64 @@
   cursor: pointer;
 }
 
-.sidebar-list-item > a {
-  text-decoration: none;
-  color: #9e9ea4;
-}
-
 .sidebar-responsive {
   display: inline !important;
   position: absolute;
-  /*
-    we want the z-index of the sidebar higher so that
-    the charts are not showing over the sidebar 
-    on small screens
-  */
   z-index: 12 !important;
+}
+
+@media screen and (max-width: 992px) {
+  #grid-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 3fr;
+    grid-template-areas:
+      'header'
+      'main';
+  }
+
+  #sidebar {
+    display: none;
+  }
+
+  .menu-icon {
+    display: inline;
+  }
+
+  .close_icon {
+    display: inline;
+  }
+
+  .sidebar-title>span {
+    display: inline;
+  }
 }
 
 /* End Sidebar  */
 
-/* Mentordashboard project view */
-#mentordisplay{
-  margin:20px;
+/* Mentordash.jsx */
+
+.main-container {
+  grid-area: main;
+  overflow-y: auto;
+  padding: 20px 20px;
+  /* color: rgba(0, 0, 0, 0.95); */
 }
+
+#mentordisplay {
+  margin: 2dvh auto;
+}
+
 #card-container {
-  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
-  margin:2rem 1rem;
+  padding: 0;
 }
 
 .mcard {
   width: 100%;
   max-width: 345px;
-  height: 300px; /* Adjust the height as needed */
-  margin: 1rem;
+  height: 300px;
+  margin: 2% auto;
   transition: transform 0.3s ease;
 }
 
@@ -141,169 +168,167 @@
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  
-} 
-   
+
+}
+
 /* Media query for small screens */
-@media (max-width: lg) {
+@media screen and (max-width: lg) {
   #card-container {
-    flex-direction: column; /* Stack cards vertically on small screens */
-    align-items: center;
+    flex-direction: column;
   }
 
   .card {
-    max-width: 100%; /* Make cards take full width on small screens */
+    max-width: 100%;
   }
 }
 
-/* end mentordashboard view */
+/* End Mentordash.jsx */
 
 
+/* Viewtopics.jsx and Projectsubmission.jsx */
 
-  /*Submission CSS*/
+.sub {
+  padding: 0;
+  justify-content: center;
+}
+
+.selection-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.selection-label {
+  margin-right: 10px;
+  /* Adjust the margin as needed */
+}
+
+#selection {
+  width: 200px;
+}
+
 .table-container {
-  /* overflow-x: auto;  */
-/* border: 1px solid #51c4d8; */
-width:100%;
-/* margin-left: 25px; */
-margin-top: 100px; 
-} 
+  width: 100%;
+  margin-top: 100px;
+}
 
 .mentor-table {
-   width: 100%; 
-   /* height:50%; */
   border-collapse: collapse;
-  border: 1px solid #51c4d8;
-  
-  margin-top: 30px; 
-  
-}
-.view{
-  margin-top: 0px;
-  
-  width:100%;
-  
- 
-}
-.sub{
-  margin-top: 0px;
+  border: 1px solid #707677;
+  margin-top: 30px;
 }
 
+.table-cell {
+  border: 1px solid #4bd4ec;
+  /*Add border to cells*/
+  padding: 8px;
+  /* Add padding to cells */
+  text-align: left;
+  /* Adjust text alignment as needed */
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
 
+#submit {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  width: 100%;
+  background-color: rgb(131, 163, 224);
+}
+
+#submit:hover {
+  background-color: rgb(255, 17, 0);
+  color: white;
+}
+
+.action-button {
+  margin-right: 4px;
+  /* Adjust margin between buttons */
+}
+
+.mentor-table th {
+  background-color: #51c4d8;
+  /* Background color for table head */
+  color: white;
+  font-size: larger;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.mentor-table tbody tr:hover {
+  background-color: #def1f8;
+  /* Background color on hover */
+}
+
+.mentor-table td .icon {
+  margin-right: 5px;
+  cursor: pointer;
+}
 
 @media screen and (max-width: 600px) {
   .mentor-table {
     overflow-x: auto;
     display: block;
   }
- 
 
-}
-
-
-.table-cell {
-  border: 1px solid  #4bd4ec; /*Add border to cells*/
-  padding: 8px; /* Add padding to cells */
-  text-align: left; /* Adjust text alignment as needed */
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  #submit:hover {
+    background-color: rgb(255, 17, 0);
+    color: white;
+  }
 }
 
-.action-button {
-  margin-right: 4px; /* Adjust margin between buttons */
+/*  End Viewtopic.jsx and Projectsubmission.jsx */
+
+
+/*  Evaluate.jsx  */
+
+.contents {
+  display: block;
 }
-.mentor-table th {
-  background-color: #51c4d8; /* Background color for table head */
-  color: white;
-  font-size: larger;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+
+.typo>#data {
+  font-family: cursive;
 }
-.mentor-table tbody tr:hover {
-  background-color: #def1f8; /* Background color on hover */
-}
-.mentor-table td .icon {
-  margin-right: 5px;
-  cursor: pointer;
-}
-#selection{
-  
-  width:100px;
-}
-.selection-container {
+
+#pro {
+  margin: auto;
+  padding: 5%;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.selection-label {
-  margin-right: 10px; /* Adjust the margin as needed */
-}
-
-#prohead{
-   
-  color:black;
-  font-size:x-large;
-  text-align: center;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-}
- #proform{ 
+#proform {
   margin-top: 10px;
-  width:70%; 
-   padding: 10px;
+  width: 70%;
+  padding: 10px;
   border: 1px solid blue;
   border-radius: 5px;
-  
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
+}
 
-
-} 
-#submit{
+#prohead {
+  color: black;
+  font-size: x-large;
+  text-align: center;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  width:100%;
-  background-color:rgb(0, 89, 255);
+  margin-left: 8px;
 }
-#submit:hover{
-  background-color:rgb(255, 17, 0);
-  color: white;
-   
-}
-#pro{
-  
-  width: 100%;
-  
-  height: 100vh;
 
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
-
-}
-.textfields{
-   
+.textfields {
   font-family: Georgia, 'Times New Roman', Times, serif;
   background-color: white;
   margin-left: 50px;
-  width:80%
-}   
-
-
-.typo{
-  margin-top: 10px;
-  margin-left: 50px;
-  height:20px;
+  width: 80%
 }
-.contents{
-  display:block;
-}
+
 @media screen and (max-width: 600px) {
   .typo {
-    height:20px;
-    width:100%;
+    /* width:100%; */
     overflow: auto;
   }
- 
 
+  #proform {
+    width: 100%;
+  }
 }
-.subcontent{
-  display:block;
-  margin-top: 0%;
-}
+
+/*  End Evaluate.jsx  */

@@ -22,36 +22,36 @@ import { Requireauth } from './Auth';
 import { Logout } from './Logout';
 
 function App() {
- 
- 
+
+
   return (
-    
+
 
     <div className='App'>
-    <Routes>
-      {/* Routes in home page   */}
-      <Route path = '/'  element={<Main child ={<Home />}/>}></Route>
-      
-      <Route path = '/About'  element={<Main child ={<Aboutus />}/>}></Route>
-      <Route path = '/Contact'  element={<Main child ={<Contact />}/>}></Route>
-      <Route path = '/Logout' element={<Logout/>}></Route>
-      
-      
-      {/* Routes to Admin dashboard */}
-       <Route path = '/Dashboard' element={<Requireauth><Admindash child={<Dashboard/>}/></Requireauth>}></Route>
-       <Route path = '/Addproject' element={<Requireauth><Admindash child={<Addproject/>}/></Requireauth>}></Route>
-       <Route path = '/Projectview' element={<Requireauth><Admindash  child={<Projectview/>}/></Requireauth>}></Route>
-       <Route path = '/Mentorview' element={<Requireauth><Admindash  child={<Mentorview/>}/></Requireauth>}></Route>
-       <Route path = '/Addmentor' element={<Requireauth><Admindash  child={<Addmentor/>}/></Requireauth>}></Route> 
+      <Routes>
+        {/* Routes in home page   */}
+        <Route path='/' element={<Main child={<Home />} />}></Route>
+
+        <Route path='/About' element={<Main child={<Aboutus />} />}></Route>
+        <Route path='/Contact' element={<Main child={<Contact />} />}></Route>
+        <Route path='/Logout' element={<Logout />}></Route>
+
+
+        {/* Routes to Admin dashboard */}
+        <Route path='/Dashboard' element={<Requireauth><Admindash child={<Dashboard />} /></Requireauth>}></Route>
+        <Route path='/Addproject' element={<Requireauth><Admindash child={<Addproject />} /></Requireauth>}></Route>
+        <Route path='/Projectview' element={<Requireauth><Admindash child={<Projectview />} /></Requireauth>}></Route>
+        <Route path='/Mentorview' element={<Requireauth><Admindash child={<Mentorview />} /></Requireauth>}></Route>
+        <Route path='/Addmentor' element={<Requireauth><Admindash child={<Addmentor />} /></Requireauth>}></Route>
 
         {/* Routes to Mentor dashboard */}
-        <Route path = '/Mentordash' element={<Requireauth><Mentormain child={<Mentordash/>}/></Requireauth>}></Route>
-       <Route path = '/Viewtopic' element={<Requireauth><Mentormain child={<Viewtopic/>}/></Requireauth>}></Route>
-       <Route path='/Projectsubmission/:projectId' element={<Requireauth><Projectsubmission /></Requireauth>} ></Route>
-       <Route path = '/Evaluate/:submissionId' element={ <Requireauth><Evaluate/></Requireauth>}></Route>
+        <Route path='/Mentordash' element={<Requireauth><Mentormain child={<Mentordash />} /></Requireauth>}></Route>
+        <Route path='/Viewtopic' element={<Requireauth><Mentormain child={<Viewtopic />} /></Requireauth>}></Route>
+        <Route path='/Projectsubmission/:projectId' element={<Requireauth><Projectsubmission /></Requireauth>} ></Route>
+        <Route path='/Evaluate/:submissionId' element={<Requireauth><Evaluate /></Requireauth>}></Route>
       </Routes>
-       </div>
-  
+    </div>
+
   );
 }
 

@@ -11,15 +11,15 @@ import Evaluate from './Evaluate';
 const Projectsubmission = ({ }) => {
 
     const [submissions, setSubmissions] = useState([]);
-    var[update,setUpdate] = useState(false);
-    var[singleValue,setSingleValue]=useState([])
+    var [update, setUpdate] = useState(false);
+    var [singleValue, setSingleValue] = useState([])
     const mentorId = localStorage.getItem('userid');
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
     const [selectedOption, setSelectedOption] = useState('Mentordash');
     const navigate = useNavigate();
     // const projectId = params.projectId;
     const { projectId } = useParams();
-    console.log(projectId, 'projectId')
+
 
 
     useEffect(() => {
@@ -50,47 +50,41 @@ const Projectsubmission = ({ }) => {
         navigate(`/Evaluate/${submissionId}`);
     };
 
-    function deletePost (submissionId) {
+    function deletePost(submissionId) {
         axiosInstance.delete(`http://localhost:3000/sub/submissions/delete/${submissionId}`)
-          .then((res) => {
-           alert(res.data);
-           axiosInstance.get(`http://localhost:3000/sub/mentor/projects?id=${mentorId}&projectId=${projectId}`)
-        .then((res) => setSubmissions(res.data))
-        .catch((error) => console.error('Error fetching submissions:', error));
-         
-          })
-          .catch((error) => {
-            console.error('Error deleting post:', error);
-          });
-      };
-   
+            .then((res) => {
+                alert(res.data);
+                axiosInstance.get(`http://localhost:3000/sub/mentor/projects?id=${mentorId}&projectId=${projectId}`)
+                    .then((res) => setSubmissions(res.data))
+                    .catch((error) => console.error('Error fetching submissions:', error));
+
+            })
+            .catch((error) => {
+                console.error('Error deleting post:', error);
+            });
+    };
+
 
 
 
     const updatesub = (val) => {
-        console.log("update clicked", val);
         navigate(`/Evaluate/${val._id}?edit=T`);
         // Check if val has the expected properties
         if (val && val._id) {
-          console.log("val._id:", val._id);
-          console.log("val.name:", val.name);
-          setUpdate(true);
-          setSingleValue(val);
+            setUpdate(true);
+            setSingleValue(val);
         } else {
-          console.error("Received invalid value for updatesub");
+            console.error("Received invalid value for updatesub");
         }
-      };
-      
-      let finalJSX= (
-        <div className='grid-header'>
+    };
+
+    let finalJSX = (
+        <div id='grid-container'>
             <Header OpenSidebar={OpenSidebar} />
-        <div />
-        
-            <div className='grid-container'>
-                {<Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} onSidebarItemClick={handleSidebarItemClick} />}
-               <div className='subcontent'>
+            {<Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} onSidebarItemClick={handleSidebarItemClick} />}
+            <main className='main-container'>
                 <div>
-                <h1 className='sub'>Submissions</h1>
+                    <h1 className='sub'>Submissions</h1>
                 </div>
                 <div className="tableContainer">
                     <TableContainer className="mentor-table" component={Paper} sx={{ maxHeight: 600 }}>
@@ -119,7 +113,7 @@ const Projectsubmission = ({ }) => {
                                         <TableCell className="table-cell" align="center">{submission.submissionUrl}</TableCell>
                                         <TableCell className="table-cell" align="center">{submission.status}</TableCell>
                                         <TableCell className="table-cell" align="center">
-                                            <Button id="submit" variant="contained" onClick={()=>handleEvaluate(submission._id)} disabled={submission.status === 'completed'} >Evaluate</Button> </TableCell>
+                                            <Button id="submit" variant="contained" onClick={() => handleEvaluate(submission._id)} disabled={submission.status === 'completed'} >Evaluate</Button> </TableCell>
                                         <TableCell className="table-cell" align="center">
                                             <EditIcon
                                                 className="action-button"
@@ -140,25 +134,20 @@ const Projectsubmission = ({ }) => {
                         </Table>
                     </TableContainer>
                 </div>
-
-
-            </div>
-
+            </main>
         </div>
-        </div>
-
     );
-    if (update && singleValue && singleValue._id){
-        finalJSX=<Evaluate method="put" data={singleValue}/>
-            }
-      return (
-      
-       
+    if (update && singleValue && singleValue._id) {
+        finalJSX = <Evaluate method="put" data={singleValue} />
+    }
+    return (
+
+
         finalJSX
-        
-      
-       )
-      
+
+
+    )
+
 }
 
 export default Projectsubmission;

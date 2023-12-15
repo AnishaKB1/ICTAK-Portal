@@ -6,7 +6,7 @@ const verifytoken = require('./basic');
 
 
 // Endpoint for mentor registration in Addmentor 
-router.post('/add',verifytoken, async (req, res) => {
+router.post('/add', verifytoken, async (req, res) => {
   try {
     const { name, email, phoneNumber, password, projectTitle } = req.body;
 
@@ -43,45 +43,45 @@ router.post('/add',verifytoken, async (req, res) => {
 
 //API for Mentor view in Mentorview page
 
-router.get('/view',verifytoken, async (req, res) => {
-    try {
-      const mentors = await Mentor.find().populate('projectTitle');
-      res.json(mentors);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
+router.get('/view', verifytoken, async (req, res) => {
+  try {
+    const mentors = await Mentor.find().populate('projectTitle');
+    res.json(mentors);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
-  //API for MEntor deletion in Mentorview
+//API for MEntor deletion in Mentorview
 
-  router.delete('/delete/:id',verifytoken, async (req, res) => {
-    try {
-        const id = req.params.id;
-        const data = await Mentor.findByIdAndDelete(id);
-        res.json(`Document has been deleted..`);
-    }
-    catch (error) {
-        res.status(400).json({ message: error.message })
-    }
-    })
+router.delete('/delete/:id', verifytoken, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = await Mentor.findByIdAndDelete(id);
+    res.json(`Document has been deleted..`);
+  }
+  catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+})
 
 
 
 //API for updation in Addmentor
 
-  router.put("/update/:id",verifytoken,async (req, res) => {
-    try {
-      const id = req.params.id;
-      const updateddata = req.body;
-      const result = await Mentor.findByIdAndUpdate(id, updateddata);  
-      res.status(200).send('Updated Successfully');
-      } catch (error) {
-        // res.status(500).send(error);
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-      }
-    });
+router.put("/update/:id", verifytoken, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updateddata = req.body;
+    const result = await Mentor.findByIdAndUpdate(id, updateddata);
+    res.status(200).send('Updated Successfully');
+  } catch (error) {
+    // res.status(500).send(error);
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
-  module.exports=router;
+module.exports = router;

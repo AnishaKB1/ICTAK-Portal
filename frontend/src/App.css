@@ -1,5 +1,5 @@
-/* Home CSS */
-/* App.css */
+/*  Home.jsx */
+
 .App {
   position: relative;
 }
@@ -9,7 +9,7 @@
   pointer-events: none;
 }
 
-body{
+body {
   background-color: beige;
 }
 
@@ -17,21 +17,19 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  padding: 50px 0;
 }
 
 .content-container {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   align-items: center;
   text-align: center;
   justify-content: space-evenly;
-  /* height: 100%; Adjusted height to fill the container */
 }
 
 .text-container {
-  /* border: 1px solid red; */
-  width: 80%; /* Adjusted width for responsiveness */
+  width: 80%;
   line-height: 2em;
 }
 
@@ -50,10 +48,8 @@ button {
 }
 
 .image-container {
-  /* border: 1px solid red; */
   overflow: hidden;
-  width: 80%; /* Adjusted width for responsiveness */
-  /* border-radius: 10px; */
+  width: 80%;
   margin: 20px;
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -69,220 +65,225 @@ button {
 }
 
 /* Media query for smaller screens */
-@media (max-width: 576px) {
-  .text-container {
-    width: 100%; /* Full width on smaller screens */
+@media only screen and (max-width: 600px) {
+  body {
+    overflow-x: hidden;
   }
 
+  .text-container,
   .image-container {
-    width: 100%; /* Full width on smaller screens */
-    margin-left: 0;
-  
+    width: 100%;
+    margin: 20px 0;
   }
+
   .image-container img {
-    width: 100%; /* Make sure the image takes 100% of the container width */
-    height: auto; /* Maintain the image's aspect ratio */
-    object-fit: contain; /* Resize the image to contain within the entire container */
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
 
   .content-container {
-    display: block;
-    flex-direction:block;
-    width:100%;
-  }
-  .text-container{
-    width:100%;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
-#call{
-  margin-bottom: 0 !important; 
+#call {
+  margin-bottom: 0 !important;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: xx-large;
   font-weight: bold;
   margin: 0 !important;
   padding: 5px !important;
- 
+
 }
-#intern{
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size :55px;
-  color:#0698fa;
+
+#intern {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 55px;
+  color: #0698fa;
   font-style: italic;
   margin: 0 !important;
   padding: 0 !important;
 }
-#para{
 
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size :larger;
-  margin: 5px 0 15px 30px ;
+#para {
+
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: larger;
+  margin: 5px 0 15px 30px;
 }
-#but{
-  font-size:x-large;
+
+#but {
+  font-size: x-large;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   background-color: #0698fa;
-  width:30%;
+  width: 30%;
 }
 
-
+/*  End Home.jsx */
 
 
 
 /*LoginForm*/
-#log
-{
+#log {
   width: 100%;
   height: 100%;
-  /* Optional, for a fixed background */
   display: flex;
-  justify-content: center; /* Horizontal alignment */
-  align-items: center; /* Vertical alignment */
-  margin-bottom: 10px;
- 
-  
+  justify-content: center;
+  /* Horizontal alignment */
+  align-items: center;
+  /* Vertical alignment */
 }
-body{
+
+body {
   background-image: url('new.jpg');
- 
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
-.loginform{
 
-    
-    width: 80%; /* Adjust the width as needed */
+.loginform {
+  width: 100%;
+  /* Adjust the width as needed */
   padding: 10px;
   border: 2px solid blue;
   border-radius: 5px;
-  margin-top: 20px;
-  justify-content: center; /* Horizontal alignment */
-  align-items: center; /* Vertical alignment */
-
- 
-
+  margin: 0px;
+  justify-content: center;
+  /* Horizontal alignment */
+  align-items: center;
+  /* Vertical alignment */
 }
 
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+  }
+
   #log {
-      width: 100%; /* Adjust the width for smaller screens */
-      margin-top:50px;
+    width: 100%;
+    /* Adjust the width for smaller screens */
   }
 }
-#head{
-   
-  color:blue;
+
+#head {
+
+  color: blue;
   text-align: center;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.btn-log{
-  width:100%;
-}
-.text{
-  width:100%
-}
 
-
-/* Add Mentor*/
-#mentor
-{
+.btn-log {
   width: 100%;
-  height: 100%;
-  /* Optional, for a fixed background */
-  display: flex;
-  justify-content: center; /* Horizontal alignment */
-  align-items: center; /* Vertical alignment */
-  margin-bottom: 50px;
-
- 
-  
 }
-#mentorhead{
-   
-  color:black;
-  font-size:x-large;
+
+.text {
+  width: 100%
+}
+
+
+/* AddMentor.jsx */
+
+.mentor {
+  margin: 5% auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mentorhead {
+  color: black;
+  font-size: x-large;
   text-align: center;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
- #mentorform{ 
-  margin-top: 20px;
-  width:60%; 
-   padding: 10px;
-  border: 1px solid blue;
+
+.mentorform {
+  padding: 10px 10px 17px 10px;
+  border: 2px solid blue;
   border-radius: 5px;
-  
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
+}
 
-
-} 
-#submit{
+.submit {
   font-family: Georgia, 'Times New Roman', Times, serif;
-  width:100%;
-  background-color:rgb(0, 89, 255);
-}
-#submit:hover{
-  background-color:rgb(255, 17, 0);
-  color: white;
-   
+  width: 100%;
+  background-color: rgb(0, 89, 255);
 }
 
-.textfields{
-   
+.submit:hover {
+  background-color: rgb(255, 17, 0);
+  color: white;
+
+}
+
+.textfields {
   font-family: Georgia, 'Times New Roman', Times, serif;
   background-color: white;
   margin-left: 50px;
-  width:80%
-}   
+  width: 80%
+}
 
-/* Add project */
-#prohead{
-   
-  color:black;
-  font-size:x-large;
+@media only screen and (max-width: 600px) {
+  .mentor {
+    margin: auto;
+  }
+}
+
+/* End Addmentor.jsx */
+
+
+/* Addproject.jsx */
+
+.addproject-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5% auto;
+  max-width: 1500px;
+  width: 100%;
+}
+
+.pro {
+  margin: auto;
+  display: flex;
+  justify-content: column;
+  align-items: center;
+}
+
+.prohead {
+  color: black;
+  font-size: x-large;
   text-align: center;
   font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-left: 8px;
 }
- #proform{ 
-  margin-top: 20px;
-  width:70%; 
-   padding: 10px;
-  border: 1px solid blue;
-  border-radius: 5px;
-  
-  justify-content: center; 
-  align-items: center; 
 
-
-} 
-#submit{
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  width:100%;
-  background-color:rgb(0, 89, 255);
-}
-#submit:hover{
-  background-color:rgb(255, 17, 0);
-  color: white;
-   
-}
-#pro{
-  
+.proform {
   width: 100%;
-  
-  height: 100vh;
-
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
-
+  padding: 10px 10px 17px 10px;
+  border: 2px solid blue;
+  border-radius: 5px;
+  justify-content: column;
+  align-items: center;
 }
-.textfields{
-   
+
+.textfields {
   font-family: Georgia, 'Times New Roman', Times, serif;
   background-color: white;
-  margin-left: 50px;
-  width:80%
-}   
+  width: 80%;
+}
 
+.submit {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  width: 100%;
+  background-color: rgb(0, 89, 255);
+  margin-left: 8px !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* End Addproject.jsx */

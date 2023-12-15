@@ -4,13 +4,13 @@ import Footer from './Footer';
 
 const Main = (props) => {
   return (
-    
-      <div>
-    <Navbar/>
-    {props.child}
-    <Footer/>
-  </div>
-   
+
+    <div>
+      <Navbar />
+      {props.child}
+      <Footer />
+    </div>
+
   );
 }
 

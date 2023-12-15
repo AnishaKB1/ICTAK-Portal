@@ -7,7 +7,8 @@ import {
   Select,
   MenuItem,
   Button,
-  Box
+  Box,
+  Typography
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
@@ -81,13 +82,46 @@ const Addmentor = (props) => {
     } else if (!/\S+@\S+\.\S+/.test(mentors.email)) {
       newErrors.email = 'Invalid email address';
     }
+
+
     if (!mentors.phoneNumber.trim()) {
       newErrors.phoneNumber = 'Phone Number is required';
-    } else if (!/^\d{10}$/.test(mentors.phoneNumber)) {
-
-      newErrors.phoneNumber = 'Invalid Phone Number';
+    } else {
+      // Remove any non-digit characters from the phone number
+      const cleanedPhoneNumber = mentors.phoneNumber.replace(/\D/g, '');
+    
+      // Check if the cleaned phone number is 10, 11, or 12 digits long
+      if (
+        cleanedPhoneNumber.length === 10 ||
+        cleanedPhoneNumber.length === 11 ||
+        cleanedPhoneNumber.length === 12
+      ) {
+        // Check the first digit conditions
+        const firstDigit = cleanedPhoneNumber.charAt(0);
+    
+        // Check if the phone number matches one of the allowed formats
+        if (/^\d{10}$|^\d{3}-\d{3}-\d{4}$|^\d{3}\.\d{3}\.\d{4}$|^\d{3} \d{3} \d{4}$/.test(mentors.phoneNumber)) {
+          if (cleanedPhoneNumber.length === 11 && cleanedPhoneNumber.startsWith('0')) {
+            newErrors.phoneNumber = 'Invalid Phone Number';
+          } else if (
+            (firstDigit >= 6 && firstDigit <= 9) ||
+            (cleanedPhoneNumber.startsWith('91') && cleanedPhoneNumber.length === 12)
+          ) {
+            // Valid phone number
+            newErrors.phoneNumber = undefined;
+          } else {
+            newErrors.phoneNumber = 'Invalid Phone Number';
+          }
+        } else {
+          newErrors.phoneNumber = 'Invalid Phone Number Format';
+        }
+      } else {
+        newErrors.phoneNumber = 'Invalid Phone Number Length';
+      }
     }
-
+    
+    
+    
 
     if (!mentors.password.trim()) {
       newErrors.password = 'Password is required';
@@ -180,144 +214,141 @@ const Addmentor = (props) => {
   const handleButtonClick = handleSubmit(handleRegister);
 
   return (
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '100%', maxWidth: '400px' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div id="mentor">
-        <form id="mentorform"  >
-          <br />
-          <h3 id="mentorhead">Mentor Registration </h3>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                className="textfields"
-                id="outlined-error"
-                label="Name"
-                variant="outlined"
-                name="name"
-                value={mentors.name}
-                onChange={handleChange}
-                error={Boolean(errors.name)}
-                helperText={errors.name}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                className="textfields"
-                id="outlined-error"
-                label="Email"
-                variant="outlined"
-                name="email"
-                value={mentors.email}
-                onChange={handleChange}
-                error={Boolean(errors.email)}
-                helperText={errors.email}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                className="textfields"
-                id="outlined-error"
-                label="Phone Number"
-                variant="outlined"
-                name="phoneNumber"
-                value={mentors.phoneNumber}
-                onChange={handleChange}
-                error={Boolean(errors.phoneNumber)}
-                helperText={errors.phoneNumber}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                className="textfields"
-                id="outlined-error"
-                label="Password"
-                variant="outlined"
-                name="password"
-                value={mentors.password}
-                onChange={handleChange}
-                error={Boolean(errors.password)}
-                helperText={errors.password}
-              />
-            </Grid>
-
-
-            {/* Other form fields */}
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel id="project-title-label">Project Title</InputLabel>
-                <Controller
-                  name="projectTitle"
-                  control={control}
-                  defaultValue={mentors.projectTitle.map(String)} // Convert IDs to strings
-                  render={({ field }) => (
-                    <Select
-                      labelId="project-title-label"
-                      id="project-title"
-                      {...field}
-                      multiple
-                      value={mentors.projectTitle.map(String)}
-                      onChange={handleChange}
-                    >
-                      {projectList.map((project) => (
-                        <MenuItem key={project._id} value={String(project._id)}>
-                          {project.title}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
+    <main className='main-container'>
+      <Box
+        component="form"
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '100%', maxWidth: '800px' },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <div className="mentor">
+          <form className="mentorform" >
+            <Grid container spacing={2} style={{ width: '100%', maxWidth: '800px' }} >
+              <Grid item xs={12} sm={12} md={12}>
+                <Typography variant='h4' className="mentorhead">Mentor Registration Form</Typography>
+              </Grid>
+              <Grid item xs={12} sm={12} md={6}>
+                <TextField
+                  className="textfields"
+                  id="outlined-error"
+                  label="Name"
+                  variant="outlined"
+                  name="name"
+                  value={mentors.name}
+                  onChange={handleChange}
+                  error={Boolean(errors.name)}
+                  helperText={errors.name}
                 />
+              </Grid>
+              <Grid item xs={12} sm={12} md={6}>
+                <TextField
+                  className="textfields"
+                  id="outlined-error"
+                  label="Email"
+                  variant="outlined"
+                  name="email"
+                  value={mentors.email}
+                  onChange={handleChange}
+                  error={Boolean(errors.email)}
+                  helperText={errors.email}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={6}>
+                <TextField
+                  className="textfields"
+                  id="outlined-error"
+                  label="Phone Number"
+                  variant="outlined"
+                  name="phoneNumber"
+                  value={mentors.phoneNumber}
+                  onChange={handleChange}
+                  error={Boolean(errors.phoneNumber)}
+                  helperText={errors.phoneNumber}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={6}>
+                <TextField
+                  className="textfields"
+                  id="outlined-error"
+                  label="Password"
+                  variant="outlined"
+                  name="password"
+                  value={mentors.password}
+                  onChange={handleChange}
+                  error={Boolean(errors.password)}
+                  helperText={errors.password}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={6}>
+                <FormControl fullWidth style={{ margin: '8px 0 0 8px' }}>
+                  <InputLabel id="project-title-label">Project Title</InputLabel>
+                  <Controller
+                    name="projectTitle"
+                    control={control}
+                    defaultValue={mentors.projectTitle.map(String)} // Convert IDs to strings
+                    render={({ field }) => (
+                      <Select
+                        labelId="project-title-label"
+                        id="project-title"
+                        {...field}
+                        multiple
+                        value={mentors.projectTitle.map(String)}
+                        onChange={handleChange}
+                      >
+                        {projectList.map((project) => (
+                          <MenuItem key={project._id} value={String(project._id)}>
+                            {project.title}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.projectTitle && (
+                    <p className="error-message">{errors.projectTitle}</p>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={12} md={6}>
+                <TextField
+                  className="textfields"
+                  id="outlined-read-only-input"
+                  label="Selected Projects"
+                  variant="outlined"
+                  multiline
+                  rows={4}
+                  value={mentors.projectTitle
+                    .map((selectedProjectId) => projectList.find((project) => project._id === selectedProjectId)?.title)
+                    .join(', ')}
+                  onChange={(e) => {
+                    // Handle changes in the selected projects text field
+                    // Update the state and form value accordingly
+                    const selectedProjects = e.target.value
+                      .split(',')
+                      .map((title) => projectList.find((project) => project.title === title.trim())?._id)
+                      .filter(Boolean);
 
+                    setMentors((prevMentors) => ({
+                      ...prevMentors,
+                      projectTitle: selectedProjects,
+                    }));
 
-                {errors.projectTitle && (
-                  <p className="error-message">{errors.projectTitle}</p>
-                )}
-              </FormControl>
+                    setValue('projectTitle', selectedProjects);
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <Button type="submit" className='submit' variant="contained" color="primary" onClick={handleButtonClick}>
+                  Register
+                </Button>
+              </Grid>
             </Grid>
+          </form>
 
-            <Grid item xs={12} sm={6}>
-              <TextField
-                className="textfields"
-                id="outlined-read-only-input"
-                label="Selected Projects"
-                variant="outlined"
-                multiline
-                rows={4}
-                value={mentors.projectTitle
-                  .map((selectedProjectId) => projectList.find((project) => project._id === selectedProjectId)?.title)
-                  .join(', ')}
-                onChange={(e) => {
-                  // Handle changes in the selected projects text field
-                  // Update the state and form value accordingly
-                  const selectedProjects = e.target.value
-                    .split(',')
-                    .map((title) => projectList.find((project) => project.title === title.trim())?._id)
-                    .filter(Boolean);
-
-                  setMentors((prevMentors) => ({
-                    ...prevMentors,
-                    projectTitle: selectedProjects,
-                  }));
-
-                  setValue('projectTitle', selectedProjects);
-                }}
-              />
-            </Grid>
-          </Grid>
-          <br />
-          <br />
-          <Button type="submit" id='submit' variant="contained" color="primary" onClick={handleButtonClick}>
-            Register
-          </Button>
-        </form>
-
-      </div>
-    </Box>
+        </div>
+      </Box>
+    </main>
   );
 }
 

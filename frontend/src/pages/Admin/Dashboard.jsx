@@ -1,37 +1,31 @@
 import React from 'react';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
-import PeopleIcon from '@mui/icons-material/People';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 
 
-const Dashboard = ({ onSidebarItemClick  }) => {
-  return (
-    <div className='dashcont'>
-      <main className='main-container'>
-        <div className='main-title'>
-          <h3>DASHBOARD</h3>
-        </div>
-
-        <div className='main-cards'>
-          <div className='card'  onClick={() => onSidebarItemClick('Projectview')}>
-            <div className='card-inner'>
-
-             <h4>Projects</h4>
-                <ViewModuleIcon className='card_icon' />
-             
-          </div>
-          </div>
-
-          <div className='card' onClick={() => onSidebarItemClick('Mentorview')}>
-            <div className='card-inner'>
-                <h4>Mentors</h4>
-                <PeopleIcon className='card_icon' />
-              
+function Dashboard({ onSidebarItemClick }) {
+    return (
+        <main className='main-container'>
+            <div className='main-title'>
+                <h2>DASHBOARD</h2>
             </div>
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-  }
+
+            <div className='main-cards'>
+                <div className='card' onClick={() => onSidebarItemClick('Projectview')}>
+                    <div className='card-inner'>
+                        <h3>Projects</h3>
+                        <ViewModuleIcon className='card_icon' />
+                    </div>
+                </div>
+                <div className='card' onClick={() => onSidebarItemClick('Mentorview')}>
+                    <div className='card-inner'>
+                        <h3>Mentors</h3>
+                        <GroupsRoundedIcon className='card_icon' />
+                    </div>
+                </div>
+            </div>
+        </main>
+    )
+}
 
 export default Dashboard;

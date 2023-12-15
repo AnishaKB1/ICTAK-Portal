@@ -3,7 +3,7 @@ import { Grid, TextField, Button, Typography, Box } from '@mui/material';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import axios from 'axios';
-import { useParams, useNavigate,useLocation  } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axiosInstance from '../../axiosinterceptor';
 
 const Evaluate = (props) => {
@@ -19,7 +19,6 @@ const Evaluate = (props) => {
   const [selectedOption, setSelectedOption] = useState('Mentordash');
   const location = useLocation();
   const searchValue = new URLSearchParams(location.search).get('edit');
-  console.log(searchValue,'searchValue')
   const navigate = useNavigate();
   const { submissionId } = useParams();
 
@@ -34,11 +33,9 @@ const Evaluate = (props) => {
     }
   }, [submissionId, props.method, props.data]);
 
-
-
   useEffect(() => {
     if (submissionId) {
-      if(searchValue=='T'){
+      if (searchValue == 'T') {
         getSubmissions(submissionId)
       }
       // Fetch submissions based on the selected project ID
@@ -53,14 +50,13 @@ const Evaluate = (props) => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
   const getSubmissions = (submissionId) => {
-      axiosInstance.get(`http://localhost:3000/sub/evaluate/${submissionId}`)
-      .then((res)=>{
-          const submissionData = res.data;
-          console.log(submissionData,'submissionData')
-          setFormData(submissionData);
+    axiosInstance.get(`http://localhost:3000/sub/evaluate/${submissionId}`)
+      .then((res) => {
+        const submissionData = res.data;
+        setFormData(submissionData);
       })
       .catch((error) => {
-          console.error('Error fetching submission:', error);
+        console.error('Error fetching submission:', error);
       });
   }
   const handleSidebarItemClick = (option) => {
@@ -75,7 +71,14 @@ const Evaluate = (props) => {
     const newErrors = {};
     if (!formData.marks.trim()) {
       newErrors.marks = 'Marks is required';
+    } else {
+      const marksValue = parseInt(formData.marks, 10);
+
+      if (isNaN(marksValue) || marksValue < 0 || marksValue > 20) {
+        newErrors.marks = 'Marks must be a number between 0 and 20';
+      }
     }
+
     if (!formData.comments.trim()) {
       newErrors.comments = 'Comments is required';
     }
@@ -94,20 +97,17 @@ const Evaluate = (props) => {
     });
   };
 
-
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form Data:', formData);
     console.log('props.method', props.method);
     if (searchValue === 'T') {
       axiosInstance
-      .put(`http://localhost:3000/sub/evaluate/${submissionId}`, formData)
+        .put(`http://localhost:3000/sub/evaluate/${submissionId}`, formData)
         .then((response) => {
           if (response.data === 'Updated Successfully') {
             alert(response.data);
-           
+
             navigate('/Viewtopic');
           } else {
             alert('not updated');
@@ -116,127 +116,118 @@ const Evaluate = (props) => {
     } else {
       if (validateForm()) {
         axiosInstance
-        .post(`http://localhost:3000/sub/submit/${submissionId}`, formData)
-        .then((res) => {
-          if (res.data === 'Posted Successfully') {
-            alert(res.data);
-            // window.location.reload(false);
-            navigate('/Viewtopic');
-          } else {
-            alert('not updated');
-          }
-        });
+          .post(`http://localhost:3000/sub/submit/${submissionId}`, formData)
+          .then((res) => {
+            if (res.data === 'Posted Successfully') {
+              alert(res.data);
+              // window.location.reload(false);
+              navigate('/Viewtopic');
+            } else {
+              alert('not updated');
+            }
+          });
+      }
     }
-  }
-
-  
   };
 
-// const getNavigations=(projectId)=>{
-//   navigate(`/Projectsubmission/${projectId}`);
-// }
-
-
-
-
-
-
   return (
-    <div className='grid-header'>
+    <div id='grid-container'>
       <Header OpenSidebar={OpenSidebar} />
-      <div className='grid-container'>
-        <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} onSidebarItemClick={handleSidebarItemClick} />
+      {<Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} onSidebarItemClick={handleSidebarItemClick} />}
+      <main className='main-container'>
         <div className='contents'>
           <div className='typo'>
-  {submission && submission.student && (
-    <Typography id="data" variant="h4">
-      {submission.student.name}
-    </Typography>
-  )}
-  {submission && submission.student && (
-    <Typography id="data" variant="h6">
-      Batch: {submission.student.batch}
-    </Typography>
-  )}
-  {submission && submission.project && (
-    <Typography id="data" variant="h6">
-      Project Title: {submission.project.title}
-    </Typography>
-  )}
-  {submission && (
-    <Typography id="data" variant="h6">
-      Submission Url: {submission.submissionUrl}
-    </Typography>
-  )}
-</div>
-<br/>
-        <div>
-          <Box
-            component="form"
-            sx={{
-              '& .MuiTextField-root': { m: 1, width: '100%', maxWidth: '400px' },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <div id="pro">
-              <form id="proform">
-                <br />
-                <h3 id="prohead">Evaluation Form </h3>
-                <Grid container spacing={3}>
+            {submission && submission.student && (
+              <Typography id="data" variant="h4">
+                {submission.student.name}
+              </Typography>
+            )}
+            {submission && submission.student && (
+              <Typography id="data" variant="h6">
+                Batch : {submission.student.batch}
+              </Typography>
+            )}
+            {submission && submission.project && (
+              <Typography id="data" variant="h6">
+                Project Title : {submission.project.title}
+              </Typography>
+            )}
+            {submission && (
+              <Typography id="data" variant="h6">
+                Submission Url : {submission.submissionUrl}
+              </Typography>
+            )}
+          </div>
+          <div>
+            <Box
+              component="form"
+              sx={{
+                '& .MuiTextField-root': { m: 1, width: '100%', maxWidth: '800px' },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <div id="pro">
+                <form id="proform">
+                  <Grid container spacing={2} style={{ width: '100%', maxWidth: '800px' }}>
+                    <Grid item xs={12} sm={12}>
+                      <Typography variant='h4' id="prohead">Evaluation Form</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        className="textfields"
+                        label="Marks(Out of 20)"
+                        variant="outlined"
+                        fullWidth
+                        name="marks"
+                        value={formData.marks}
+                        onChange={handleChange}
+                        error={!!errors.marks}
+                        helperText={errors.marks}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        className="textfields"
+                        label="Comments"
+                        variant="outlined"
+                        fullWidth
+                        name="comments"
 
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      label="Marks(Out of 20)"
-                      variant="outlined"
-                      fullWidth
-                      name="marks"
-                      value={formData.marks}
-                      onChange={handleChange}
-                      error={!!errors.marks}
-                      helperText={errors.marks}
-                    />
+                        value={formData.comments}
+                        onChange={handleChange}
+                        error={!!errors.comments}
+                        helperText={errors.comments}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                      <TextField
+                        className="textfields"
+                        label="Reference Material"
+                        variant="outlined"
+                        fullWidth
+                        name="referenceMaterial"
+                        value={formData.referenceMaterial}
+                        onChange={handleChange}
+                        error={!!errors.referenceMaterial}
+                        helperText={errors.referenceMaterial}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} sm={12}>
+                      <Button className="submit" variant="contained" color="primary" onClick={handleSubmit}>
+                        Submit
+                      </Button>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      label="Comments"
-                      variant="outlined"
-                      fullWidth
-                      name="comments"
-                      
-                      value={formData.comments}
-                      onChange={handleChange}
-                      error={!!errors.comments}
-                      helperText={errors.comments}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      label="Reference Material"
-                      variant="outlined"
-                      fullWidth
-                      name="referenceMaterial"
-                      value={formData.referenceMaterial}
-                      onChange={handleChange}
-                      error={!!errors.referenceMaterial}
-                      helperText={errors.referenceMaterial}
-                    />
-                  </Grid>
-                  <br />
-                  <Grid item xs={12}>
-                    <Button variant="contained" color="primary" onClick={handleSubmit}>
-                      Submit
-                    </Button>
-                  </Grid>
-                </Grid>
-              </form>
-            </div>
-          </Box>
+                </form>
+              </div>
+            </Box>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
-    </div>
-      );
+  );
 };
 
-      export default Evaluate;
+export default Evaluate;

@@ -22,7 +22,6 @@ const Mentordash = () => {
           },
         })
         .then((response) => {
-          console.log('API Response:', response.data);
           const mentorData = response.data;
 
           // Set mentor name from the API response
@@ -44,30 +43,32 @@ const Mentordash = () => {
   };
 
   return (
-    <div>
-      <Typography id="mentordisplay" variant="h4">Welcome, {mentorName}!</Typography>
+    <main className='main-container'>
+      <div id="mentordisplay">
+        <Typography variant="h4">Welcome, {mentorName}!</Typography>
 
-      <Container maxWidth="lg" id="card-container">
-        {mentorProjects.length === 0 ? (
-          <Typography variant="h5" style={{ alignItems: 'center' }}>No projects assigned.</Typography>
-        ) : (
-          <Grid container spacing={3}>
-            {mentorProjects.map((project, i) => (
-              <Grid item key={i} xs={12} sm={6} md={4}>
-                <Card className="mcard" onClick={() => handleCardClick(project._id)}>
-                  <CardMedia className="card-media" image={project.imageUrl} title={project.title} style={{ height: '190px' }} />
-                  <CardContent className="card-content">
-                    <Typography gutterBottom variant="h5" component="div">
-                      <strong>{project.title}</strong>
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </Container>
-    </div>
+        <Container maxWidth="lg" id="card-container">
+          {mentorProjects.length === 0 ? (
+            <Typography variant="h5" style={{ alignItems: 'center' }}>No projects assigned.</Typography>
+          ) : (
+            <Grid container spacing={3}>
+              {mentorProjects.map((project, i) => (
+                <Grid item key={i} xs={12} sm={6} md={4}>
+                  <Card className="mcard" onClick={() => handleCardClick(project._id)}>
+                    <CardMedia className="card-media" image={project.imageUrl} title={project.title} style={{ height: '190px' }} />
+                    <CardContent className="card-content">
+                      <Typography gutterBottom variant="h5" component="div">
+                        <strong>{project.title}</strong>
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </Container>
+      </div>
+    </main>
   );
 };
 
