@@ -22,50 +22,53 @@ const Login = ({ isLoginClicked }) => {
 
   const validateForm = () => {
     const newErrors = {};
-
-    if (!user.email.trim()) {
+  
+    if (!user.email?.trim()) {
       newErrors.email = 'Email is required';
     }
-
-    if (!user.password.trim()) {
+  
+    if (!user.password?.trim()) {
       newErrors.password = 'Password is required';
     }
-
+  
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+  
 
 
   const addHandler = () => {
     if (validateForm()) {
-      axios.post('http://localhost:3000/admin/login', user).then((res) => {
-        localStorage.setItem("userid", res.data.userid);
-        alert(res.data.message);
-        if (res.status === 200 && res.data.message === 'success'){
-          sessionStorage.setItem("userToken", res.data.token);
-          if (user.email === 'admin@gmail.com') {
-            navigate('/Dashboard');
-          } else {
-
-            navigate('/Mentordash');
+      axios.post('http://localhost:3000/admin/login', user)
+        .then((res) => {
+          localStorage.setItem("userid", res.data.userid);
+          alert(res.data.message);
+  
+          if (res.status === 200 && res.data.message === 'success') {
+            sessionStorage.setItem("userToken", res.data.token);
+            if (user.email === 'admin@gmail.com') {
+              navigate('/Dashboard');
+            } else {
+              navigate('/Mentordash');
+            }
           }
-        }
-      })
-
-      .catch((error) => {
-        if (error.response && error.response.status === 401) {
-          alert(error.response.data.message); // Display the specific error message
-          setUser(' ');
-        } else {
+        })
+        .catch((error) => {
           console.error('Error during login:', error);
-          alert('An error occurred. Please try again later.');
-          setUser(' ');
-        }
-      });
-      
-
+  
+          if (error.response) {
+            if (error.response.status === 401) {
+              alert(error.response.data.message);
+            } else {
+              alert('An error occurred. Please try again later.');
+            }
+          } else {
+            alert('An error occurred. Please try again later.');
+          }
+        });
     }
-  }
+  };
+  
 
 
   return (
