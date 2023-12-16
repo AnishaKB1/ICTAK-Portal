@@ -83,46 +83,17 @@ const Addmentor = (props) => {
       newErrors.email = 'Invalid email address';
     }
 
-
     if (!mentors.phoneNumber.trim()) {
-      newErrors.phoneNumber = 'Phone Number is required';
+      newErrors.phoneNumber = 'Phone number is required';
     } else {
-      // Remove any non-digit characters from the phone number
-      const cleanedPhoneNumber = mentors.phoneNumber.replace(/\D/g, '');
+      // Define a regular expression for the phone number pattern
+      const phoneRegex = /^(91)?[6-9]\d{9}$/;
     
-      // Check if the cleaned phone number is 10, 11, or 12 digits long
-      if (
-        cleanedPhoneNumber.length === 10 ||
-        cleanedPhoneNumber.length === 11 ||
-        cleanedPhoneNumber.length === 12
-      ) {
-        // Check the first digit conditions
-        const firstDigit = cleanedPhoneNumber.charAt(0);
-    
-        // Check if the phone number matches one of the allowed formats
-        if (/^\d{10}$|^\d{3}-\d{3}-\d{4}$|^\d{3}\.\d{3}\.\d{4}$|^\d{3} \d{3} \d{4}$/.test(mentors.phoneNumber)) {
-          if (cleanedPhoneNumber.length === 11 && cleanedPhoneNumber.startsWith('0')) {
-            newErrors.phoneNumber = 'Invalid Phone Number';
-          } else if (
-            (firstDigit >= 6 && firstDigit <= 9) ||
-            (cleanedPhoneNumber.startsWith('91') && cleanedPhoneNumber.length === 12)
-          ) {
-            // Valid phone number
-            newErrors.phoneNumber = undefined;
-          } else {
-            newErrors.phoneNumber = 'Invalid Phone Number';
-          }
-        } else {
-          newErrors.phoneNumber = 'Invalid Phone Number Format';
-        }
-      } else {
-        newErrors.phoneNumber = 'Invalid Phone Number Length';
+      if (!phoneRegex.test(mentors.phoneNumber)) {
+        newErrors.phoneNumber = 'Invalid phone number';
       }
     }
-    
-    
-    
-
+   
     if (!mentors.password.trim()) {
       newErrors.password = 'Password is required';
     } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}/.test(mentors.password)) {

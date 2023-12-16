@@ -108,7 +108,7 @@ const Evaluate = (props) => {
           if (response.data === 'Updated Successfully') {
             alert(response.data);
 
-            navigate('/Viewtopic');
+            navigate('/viewtopic');
           } else {
             alert('not updated');
           }
@@ -121,7 +121,7 @@ const Evaluate = (props) => {
             if (res.data === 'Posted Successfully') {
               alert(res.data);
               // window.location.reload(false);
-              navigate('/Viewtopic');
+              navigate('/viewtopic');
             } else {
               alert('not updated');
             }

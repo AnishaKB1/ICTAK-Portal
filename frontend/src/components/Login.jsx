@@ -21,6 +21,8 @@ const Login = ({ isLoginClicked }) => {
   }
 
   const validateForm = () => {
+    console.log('User email:', user.email);
+    console.log('User password:', user.password);
     const newErrors = {};
   
     if (!user.email?.trim()) {
@@ -47,9 +49,9 @@ const Login = ({ isLoginClicked }) => {
           if (res.status === 200 && res.data.message === 'success') {
             sessionStorage.setItem("userToken", res.data.token);
             if (user.email === 'admin@gmail.com') {
-              navigate('/Dashboard');
+              navigate('/dashboard');
             } else {
-              navigate('/Mentordash');
+              navigate('/mentordash');
             }
           }
         })

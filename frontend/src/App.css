@@ -68,6 +68,8 @@ button {
 @media only screen and (max-width: 600px) {
   body {
     overflow-x: hidden;
+    margin:auto;
+    height: 100%;
   }
 
   .text-container,

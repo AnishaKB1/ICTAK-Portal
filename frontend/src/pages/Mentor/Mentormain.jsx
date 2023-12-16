@@ -5,26 +5,24 @@ import Sidebar from './Sidebar';
 import Mentordash from './Mentordash';
 import './Mentordash.css';
 import Viewtopic from './Viewtopic';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Mentormain = () => {
+  const navigate = useNavigate();
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
-  const location = useLocation();
-  const pathnameWithoutSlash = location.pathname.substring(1);
-  const [selectedOption, setSelectedOption] = useState(pathnameWithoutSlash);
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle)
   };
   const handleSidebarItemClick = (option) => {
-    setSelectedOption(option);
+    navigate(`/${option.toLowerCase()}`);
   };
 
   return (
     <div id='grid-container'>
       <Header OpenSidebar={OpenSidebar} />
       {<Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} onSidebarItemClick={handleSidebarItemClick} />}
-      {selectedOption === 'Mentordash' && <Mentordash />}
-      {selectedOption === 'Viewtopic' && <Viewtopic />}
+      {window.location.pathname === '/mentordash' && <Mentordash />}
+      {window.location.pathname === '/viewtopic' && <Viewtopic />}
     </div>
   );
 }
